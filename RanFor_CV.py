@@ -2,6 +2,10 @@
 # Random Forest with 5FCV
 # 5FCV is not necessary for Ran For; 
 # we use it to test the OOB error estimate 
+# The project is to predict the volitality of stock prices using historical data
+# Specifically, the goal is to predict whether tomorrow's high is higher than today's high
+# and whether tomorrow's low is lower than today's low.
+
 import sys
 import numpy as np
 import random
