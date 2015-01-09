@@ -1,6 +1,7 @@
 # Machine Learning Homework 9
 # Exercise 13.7 of http://statweb.stanford.edu/~tibs/ElemStatLearn/
-
+# Machine Learning Homework 9
+# Exercise 13.7 Questoin 3: repeat 1 with penalty
 import sys
 import numpy as np
 import random
@@ -32,12 +33,13 @@ def Data2Yd(data):
 # main() function
 def main():
   print "---------- CS 574 Homework 9 -----------"
-  print "  Ex. 13.7 Questions 1:\n  Replicated the results in the left panel of Figure 13.5\n"
-  num_runs = 30
-  num_neigs = np.arange(1, 82, 3)
+  print "  Ex. 13.7 Questions 3:\n  Repeat 1 with penalty \n"
+  num_runs = 10
+  num_neigs = np.arange(4, 82, 4)
   error_rates_e = np.zeros((num_neigs.shape[0], num_runs))
   error_rates_d = np.zeros((num_neigs.shape[0], num_runs))
   run = 0
+  penalty = 2.0
   
   for run in range(num_runs): 
     ##### Generate Training and test dataset
@@ -57,14 +59,14 @@ def main():
       ### train and test the data ###
       # easy problem 
       knn = KNeighborsClassifier(n_neighbors = num_neigs[neig])
-      knn.fit(trainX_e, trainY_e)
-      err_rate = np.count_nonzero(knn.predict(testX_e) - testY_e) / float(testY_e.shape[0])
-      error_rates_e[neig, run] = err_rate
+      knn.fit(datasetX, y_e)
+      err_rate = np.count_nonzero(knn.predict(datasetX) - y_e) / float(y_e.shape[0])
+      error_rates_e[neig, run] = err_rate + 2.0/num_neigs[neig]
 
       # difficult problem
       knn.fit(trainX_d, trainY_d)
-      err_rate = np.count_nonzero(knn.predict(testX_d) - testY_d) / float(testY_d.shape[0])
-      error_rates_d[neig, run] = err_rate
+      err_rate = np.count_nonzero(knn.predict(datasetX) - y_e) / float(y_e.shape[0])
+      error_rates_d[neig, run] = err_rate + 2.0/num_neigs[neig]
       
   mean_e = np.mean(error_rates_e, axis = 1)
   std_e = np.std(error_rates_e, axis = 1)
@@ -82,17 +84,17 @@ def main():
   plot_x = num_neigs
   fig, (ax0, ax1) = plt.subplots(nrows = 2)
   ax0.errorbar(plot_x, mean_e, yerr = std_e/np.sqrt(std_e.shape[0]))
-  ax0.set_title(' Easy problem / KNN')
+  ax0.set_title(' Easy problem / KNN with penalty')
   ax0.set_ylabel('Misclassification Error')
-  ax0.set_xlim([0, 82])
+  ax0.set_xlim([4, 82])
 
   ax1.errorbar(plot_x, mean_d, yerr = std_d/np.sqrt(std_d.shape[0]))
-  ax1.set_title(' Difficult problem / KNN')
+  ax1.set_title(' Difficult problem / KNN with penalty')
   ax1.set_xlabel('Number of Neighbors')
   ax1.set_ylabel('Misclassification Error')
-  ax1.set_xlim([0, 82])
+  ax1.set_xlim([4, 82])
   
-  plt.savefig('knn_30.pdf')
+  plt.savefig('knn_penalty2_30.pdf')
   plt.show()
   
   
