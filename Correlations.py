@@ -1,4 +1,7 @@
 # Data Autocorrelation function & cross-feature correlation
+# This code is to analyze the autocorrelation & cross-feature correlation matrix
+# of stock prices data. The data files can be downloaded from NASDAQ official website
+
 import sys
 import numpy as np
 import pandas as pd
@@ -168,12 +171,3 @@ def Data_Norm(data):
 
 if __name__ == '__main__':
   main()
-
-
-
-
-
-
-
-
-
