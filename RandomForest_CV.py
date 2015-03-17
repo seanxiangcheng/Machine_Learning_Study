@@ -1,5 +1,6 @@
 # Machine Learning Project
-# Random Forest with 5FCV
+# Random Forest with 5FCV; 
+#I should have use OOB estimate, but 5FCV works OK and takes less memory resource.
 # 5FCV is not necessary for Ran For; 
 # we use it to test the OOB error estimate 
 # The project is to predict the volitality of stock prices using historical data
